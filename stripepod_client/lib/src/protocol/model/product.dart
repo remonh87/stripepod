@@ -50,6 +50,7 @@ abstract class Product implements _i1.SerializableModel {
   @override
   Map<String, dynamic> toJson() {
     return {
+      '__className__': 'Product',
       'id': id,
       'name': name,
       'priceInCents': priceInCents,
