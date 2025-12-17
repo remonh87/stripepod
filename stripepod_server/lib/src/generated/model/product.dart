@@ -51,6 +51,7 @@ abstract class Product
   @override
   Map<String, dynamic> toJson() {
     return {
+      '__className__': 'Product',
       'id': id,
       'name': name,
       'priceInCents': priceInCents,
@@ -60,6 +61,7 @@ abstract class Product
   @override
   Map<String, dynamic> toJsonForProtocol() {
     return {
+      '__className__': 'Product',
       'id': id,
       'name': name,
       'priceInCents': priceInCents,

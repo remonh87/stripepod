@@ -76,6 +76,7 @@ abstract class Payment implements _i1.SerializableModel {
   @override
   Map<String, dynamic> toJson() {
     return {
+      '__className__': 'Payment',
       if (id != null) 'id': id,
       'stripeId': stripeId,
       'amount': amount,

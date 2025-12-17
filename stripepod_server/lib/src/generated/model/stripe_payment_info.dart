@@ -45,6 +45,7 @@ abstract class StripePaymentInfo
   @override
   Map<String, dynamic> toJson() {
     return {
+      '__className__': 'StripePaymentInfo',
       'paymentIntentId': paymentIntentId,
       'clientSecret': clientSecret,
     };
@@ -53,6 +54,7 @@ abstract class StripePaymentInfo
   @override
   Map<String, dynamic> toJsonForProtocol() {
     return {
+      '__className__': 'StripePaymentInfo',
       'paymentIntentId': paymentIntentId,
       'clientSecret': clientSecret,
     };

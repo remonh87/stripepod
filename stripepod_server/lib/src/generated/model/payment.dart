@@ -82,6 +82,7 @@ abstract class Payment
   @override
   Map<String, dynamic> toJson() {
     return {
+      '__className__': 'Payment',
       if (id != null) 'id': id,
       'stripeId': stripeId,
       'amount': amount,
@@ -94,6 +95,7 @@ abstract class Payment
   @override
   Map<String, dynamic> toJsonForProtocol() {
     return {
+      '__className__': 'Payment',
       if (id != null) 'id': id,
       'stripeId': stripeId,
       'amount': amount,
