@@ -82,7 +82,7 @@ class _CheckPaymentWebScreenState extends State<CheckPaymentWebScreen> {
                           ? [
                               Text('Checking payment...'),
                               const SizedBox(height: 16),
-                              CircularProgressIndicator(),
+                              Center(child: Container(alignment: Alignment.center,  width:16, child: CircularProgressIndicator())),
                             ]
                           : [
                               ValueListenableBuilder(
