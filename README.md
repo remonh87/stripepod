@@ -4,7 +4,7 @@
 
 ![StripePod Featured](stripe_pod_featured.png)
 
-*Maintained by [Arkbridge Solutions](https://arkbridge.co.uk)*
+*Maintained by [Remon Helmond](https://remonhelmond.dev)*
 
 ---
 
@@ -119,10 +119,7 @@ We used `StatefulWidget` and `ValueNotifier` instead of Bloc/Riverpod.
 
 This boilerplate handles the **"First Transaction."** Scaling to subscriptions, handling proration, and automating DevOps (Terraform/K8s) requires a deeper strategy.
 
-**Arkbridge Solutions** specializes in Dart Full-Stack & Flutter.
-
 - 🔗 [Connect with Remon Helmond on LinkedIn](https://linkedin.com)
-- 🌐 [Visit arkbridge.co.uk](https://arkbridge.co.uk)
 
 ---
 
