@@ -8,90 +8,77 @@
 // ignore_for_file: type_literal_in_constant_pattern
 // ignore_for_file: use_super_parameters
 // ignore_for_file: invalid_use_of_internal_member
+// ignore_for_file: dead_code, unnecessary_type_check
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod/serverpod.dart' as _i1;
-import 'package:serverpod/protocol.dart' as _i2;
-import 'model/payment.dart' as _i3;
-import 'model/payment_status.dart' as _i4;
-import 'model/product.dart' as _i5;
-import 'model/stripe_payment_info.dart' as _i6;
+import 'package:serverpod/protocol.dart' as _isp;
+import 'package:serverpod/serverpod.dart' as _is;
+import 'model/payment.dart' as _ikfleofm;
+import 'model/payment_status.dart' as _i00yjj1v;
+import 'model/product.dart' as _igfqb4xa;
+import 'model/stripe_payment_info.dart' as _i6iefg2g;
 export 'model/payment.dart';
 export 'model/payment_status.dart';
 export 'model/product.dart';
 export 'model/stripe_payment_info.dart';
 
-class Protocol extends _i1.SerializationManagerServer {
+class Protocol extends _is.DatabaseSerializationManager {
   Protocol._();
 
   factory Protocol() => _instance;
 
   static final Protocol _instance = Protocol._();
 
-  static final List<_i2.TableDefinition> targetTableDefinitions = [
-    _i2.TableDefinition(
+  static List<_isp.TableDefinition> get targetTableDefinitions => [
+    _isp.TableDefinition(
       name: 'payments',
       dartName: 'Payment',
       schema: 'public',
       module: 'stripepod',
       columns: [
-        _i2.ColumnDefinition(
+        _isp.ColumnDefinition(
           name: 'id',
-          columnType: _i2.ColumnType.bigint,
+          columnType: _isp.ColumnType.bigint,
           isNullable: false,
           dartType: 'int?',
-          columnDefault: 'nextval(\'payments_id_seq\'::regclass)',
+          columnDefault: 'serial',
         ),
-        _i2.ColumnDefinition(
+        _isp.ColumnDefinition(
           name: 'stripeId',
-          columnType: _i2.ColumnType.text,
+          columnType: _isp.ColumnType.text,
           isNullable: false,
           dartType: 'String',
         ),
-        _i2.ColumnDefinition(
+        _isp.ColumnDefinition(
           name: 'amount',
-          columnType: _i2.ColumnType.bigint,
+          columnType: _isp.ColumnType.bigint,
           isNullable: false,
           dartType: 'int',
         ),
-        _i2.ColumnDefinition(
+        _isp.ColumnDefinition(
           name: 'currency',
-          columnType: _i2.ColumnType.text,
+          columnType: _isp.ColumnType.text,
           isNullable: false,
           dartType: 'String',
         ),
-        _i2.ColumnDefinition(
+        _isp.ColumnDefinition(
           name: 'status',
-          columnType: _i2.ColumnType.text,
+          columnType: _isp.ColumnType.text,
           isNullable: false,
           dartType: 'protocol:PaymentStatus',
         ),
-        _i2.ColumnDefinition(
+        _isp.ColumnDefinition(
           name: 'createdAt',
-          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          columnType: _isp.ColumnType.timestampWithoutTimeZone,
           isNullable: false,
           dartType: 'DateTime',
         ),
       ],
       foreignKeys: [],
-      indexes: [
-        _i2.IndexDefinition(
-          indexName: 'payments_pkey',
-          tableSpace: null,
-          elements: [
-            _i2.IndexElementDefinition(
-              type: _i2.IndexElementDefinitionType.column,
-              definition: 'id',
-            ),
-          ],
-          type: 'btree',
-          isUnique: true,
-          isPrimary: true,
-        ),
-      ],
+      indexes: [],
       managed: true,
     ),
-    ..._i2.Protocol.targetTableDefinitions,
+    ..._isp.Protocol.targetTableDefinitions,
   ];
 
   static String? getClassNameFromObjectJson(dynamic data) {
@@ -114,49 +101,51 @@ class Protocol extends _i1.SerializationManagerServer {
           'className': dataClassName,
           'data': data,
         });
-      } on FormatException catch (_) {
+      } on _is.DeserializationClassNameNotFoundException catch (_) {
         // If the className is not recognized (e.g., older client receiving
         // data with a new subtype), fall back to deserializing without the
         // className, using the expected type T.
       }
     }
 
-    if (t == _i3.Payment) {
-      return _i3.Payment.fromJson(data) as T;
+    if (t == _ikfleofm.Payment) {
+      return _ikfleofm.Payment.fromJson(data) as T;
     }
-    if (t == _i4.PaymentStatus) {
-      return _i4.PaymentStatus.fromJson(data) as T;
+    if (t == _i00yjj1v.PaymentStatus) {
+      return _i00yjj1v.PaymentStatus.fromJson(data) as T;
     }
-    if (t == _i5.Product) {
-      return _i5.Product.fromJson(data) as T;
+    if (t == _igfqb4xa.Product) {
+      return _igfqb4xa.Product.fromJson(data) as T;
     }
-    if (t == _i6.StripePaymentInfo) {
-      return _i6.StripePaymentInfo.fromJson(data) as T;
+    if (t == _i6iefg2g.StripePaymentInfo) {
+      return _i6iefg2g.StripePaymentInfo.fromJson(data) as T;
     }
-    if (t == _i1.getType<_i3.Payment?>()) {
-      return (data != null ? _i3.Payment.fromJson(data) : null) as T;
+    if (t == _is.getType<_ikfleofm.Payment?>()) {
+      return (data != null ? _ikfleofm.Payment.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i4.PaymentStatus?>()) {
-      return (data != null ? _i4.PaymentStatus.fromJson(data) : null) as T;
+    if (t == _is.getType<_i00yjj1v.PaymentStatus?>()) {
+      return (data != null ? _i00yjj1v.PaymentStatus.fromJson(data) : null)
+          as T;
     }
-    if (t == _i1.getType<_i5.Product?>()) {
-      return (data != null ? _i5.Product.fromJson(data) : null) as T;
+    if (t == _is.getType<_igfqb4xa.Product?>()) {
+      return (data != null ? _igfqb4xa.Product.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i6.StripePaymentInfo?>()) {
-      return (data != null ? _i6.StripePaymentInfo.fromJson(data) : null) as T;
+    if (t == _is.getType<_i6iefg2g.StripePaymentInfo?>()) {
+      return (data != null ? _i6iefg2g.StripePaymentInfo.fromJson(data) : null)
+          as T;
     }
     try {
-      return _i2.Protocol().deserialize<T>(data, t);
-    } on _i1.DeserializationTypeNotFoundException catch (_) {}
+      return _isp.Protocol().deserialize<T>(data, t);
+    } on _is.DeserializationTypeNotFoundException catch (_) {}
     return super.deserialize<T>(data, t);
   }
 
   static String? getClassNameForType(Type type) {
     return switch (type) {
-      _i3.Payment => 'Payment',
-      _i4.PaymentStatus => 'PaymentStatus',
-      _i5.Product => 'Product',
-      _i6.StripePaymentInfo => 'StripePaymentInfo',
+      _ikfleofm.Payment => 'Payment',
+      _i00yjj1v.PaymentStatus => 'PaymentStatus',
+      _igfqb4xa.Product => 'Product',
+      _i6iefg2g.StripePaymentInfo => 'StripePaymentInfo',
       _ => null,
     };
   }
@@ -171,18 +160,18 @@ class Protocol extends _i1.SerializationManagerServer {
     }
 
     switch (data) {
-      case _i3.Payment():
+      case _ikfleofm.Payment():
         return 'Payment';
-      case _i4.PaymentStatus():
+      case _i00yjj1v.PaymentStatus():
         return 'PaymentStatus';
-      case _i5.Product():
+      case _igfqb4xa.Product():
         return 'Product';
-      case _i6.StripePaymentInfo():
+      case _i6iefg2g.StripePaymentInfo():
         return 'StripePaymentInfo';
     }
-    className = _i2.Protocol().getClassNameForObject(data);
+    className = _isp.Protocol().getClassNameForObject(data);
     if (className != null) {
-      return 'serverpod.$className';
+      return className.contains('.') ? className : 'serverpod.$className';
     }
     return null;
   }
@@ -194,43 +183,58 @@ class Protocol extends _i1.SerializationManagerServer {
       return super.deserializeByClassName(data);
     }
     if (dataClassName == 'Payment') {
-      return deserialize<_i3.Payment>(data['data']);
+      return deserialize<_ikfleofm.Payment>(data['data']);
     }
     if (dataClassName == 'PaymentStatus') {
-      return deserialize<_i4.PaymentStatus>(data['data']);
+      return deserialize<_i00yjj1v.PaymentStatus>(data['data']);
     }
     if (dataClassName == 'Product') {
-      return deserialize<_i5.Product>(data['data']);
+      return deserialize<_igfqb4xa.Product>(data['data']);
     }
     if (dataClassName == 'StripePaymentInfo') {
-      return deserialize<_i6.StripePaymentInfo>(data['data']);
+      return deserialize<_i6iefg2g.StripePaymentInfo>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
-      return _i2.Protocol().deserializeByClassName(data);
+      return _isp.Protocol().deserializeByClassName(data);
     }
     return super.deserializeByClassName(data);
   }
 
   @override
-  _i1.Table? getTableForType(Type t) {
+  _is.Table? getTableForType(Type t) {
     {
-      var table = _i2.Protocol().getTableForType(t);
+      var table = _isp.Protocol().getTableForType(t);
       if (table != null) {
         return table;
       }
     }
     switch (t) {
-      case _i3.Payment:
-        return _i3.Payment.t;
+      case _ikfleofm.Payment:
+        return _ikfleofm.Payment.t;
     }
     return null;
   }
 
   @override
-  List<_i2.TableDefinition> getTargetTableDefinitions() =>
+  List<_isp.TableDefinition> getTargetTableDefinitions() =>
       targetTableDefinitions;
 
   @override
   String getModuleName() => 'stripepod';
+
+  /// Maps any `Record`s known to this [Protocol] to their JSON representation
+  ///
+  /// Throws in case the record type is not known.
+  ///
+  /// This method will return `null` (only) for `null` inputs.
+  Map<String, dynamic>? mapRecordToJson(Record? record) {
+    if (record == null) {
+      return null;
+    }
+    try {
+      return _isp.Protocol().mapRecordToJson(record);
+    } catch (_) {}
+    throw Exception('Unsupported record type ${record.runtimeType}');
+  }
 }
