@@ -22,18 +22,39 @@ export 'model/product.dart';
 export 'model/stripe_payment_info.dart';
 export 'client.dart';
 
-class Protocol extends _isc.SerializationManager {
+class Protocol extends _isc.SerializationManager
+    implements _isc.ProtocolDeserializationProvider {
   Protocol._();
 
   factory Protocol() => _instance;
 
   static final Protocol _instance = Protocol._();
 
-  static String? getClassNameFromObjectJson(dynamic data) {
-    if (data is! Map) return null;
-    final className = data['__className__'] as String?;
-    return className;
-  }
+  @override
+  _isc.ProtocolDeserialization get deserializationMetadata =>
+      _isc.ProtocolDeserialization.cached(
+        this,
+        types: const [
+          _isc.getType<_ikfleofm.Payment>,
+          _isc.getType<_i00yjj1v.PaymentStatus>,
+          _isc.getType<_igfqb4xa.Product>,
+          _isc.getType<_i6iefg2g.StripePaymentInfo>,
+          _isc.getType<_ikfleofm.Payment?>,
+          _isc.getType<_i00yjj1v.PaymentStatus?>,
+          _isc.getType<_igfqb4xa.Product?>,
+          _isc.getType<_i6iefg2g.StripePaymentInfo?>,
+        ],
+        modules: const [],
+        classNames: const [
+          'Payment',
+          'PaymentStatus',
+          'Product',
+          'StripePaymentInfo',
+        ],
+      );
+
+  static String? getClassNameFromObjectJson(dynamic data) =>
+      _isc.ProtocolDeserialization.readClassName(data);
 
   @override
   T deserialize<T>(
@@ -41,8 +62,8 @@ class Protocol extends _isc.SerializationManager {
     Type? t,
   ]) {
     t ??= T;
-
-    final dataClassName = getClassNameFromObjectJson(data);
+    final rawDataClassName = _isc.ProtocolDeserialization.readClassName(data);
+    final dataClassName = rawDataClassName;
     if (dataClassName != null && dataClassName != getClassNameForType(t)) {
       try {
         return deserializeByClassName({

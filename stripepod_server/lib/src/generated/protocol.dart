@@ -22,14 +22,43 @@ export 'model/payment_status.dart';
 export 'model/product.dart';
 export 'model/stripe_payment_info.dart';
 
-class Protocol extends _is.DatabaseSerializationManager {
+class Protocol extends _is.DatabaseSerializationManager
+    implements _is.DatabaseProtocolDeserializationProvider {
   Protocol._();
 
   factory Protocol() => _instance;
 
   static final Protocol _instance = Protocol._();
 
+  @override
+  _is.ProtocolDeserialization get deserializationMetadata =>
+      _is.ProtocolDeserialization.cached(
+        this,
+        types: const [
+          _is.getType<_ikfleofm.Payment>,
+          _is.getType<_i00yjj1v.PaymentStatus>,
+          _is.getType<_igfqb4xa.Product>,
+          _is.getType<_i6iefg2g.StripePaymentInfo>,
+          _is.getType<_ikfleofm.Payment?>,
+          _is.getType<_i00yjj1v.PaymentStatus?>,
+          _is.getType<_igfqb4xa.Product?>,
+          _is.getType<_i6iefg2g.StripePaymentInfo?>,
+        ],
+        modules: const [_isp.Protocol.new],
+        classNames: const [
+          'Payment',
+          'PaymentStatus',
+          'Product',
+          'StripePaymentInfo',
+        ],
+      );
+
   static List<_isp.TableDefinition> get targetTableDefinitions => [
+    ..._ownTableDefinitions,
+    ..._isp.Protocol.targetTableDefinitions,
+  ];
+
+  static List<_isp.TableDefinition> get _ownTableDefinitions => [
     _isp.TableDefinition(
       name: 'payments',
       dartName: 'Payment',
@@ -78,14 +107,10 @@ class Protocol extends _is.DatabaseSerializationManager {
       indexes: [],
       managed: true,
     ),
-    ..._isp.Protocol.targetTableDefinitions,
   ];
 
-  static String? getClassNameFromObjectJson(dynamic data) {
-    if (data is! Map) return null;
-    final className = data['__className__'] as String?;
-    return className;
-  }
+  static String? getClassNameFromObjectJson(dynamic data) =>
+      _is.ProtocolDeserialization.readClassName(data);
 
   @override
   T deserialize<T>(
@@ -93,8 +118,8 @@ class Protocol extends _is.DatabaseSerializationManager {
     Type? t,
   ]) {
     t ??= T;
-
-    final dataClassName = getClassNameFromObjectJson(data);
+    final rawDataClassName = _is.ProtocolDeserialization.readClassName(data);
+    final dataClassName = rawDataClassName;
     if (dataClassName != null && dataClassName != getClassNameForType(t)) {
       try {
         return deserializeByClassName({
@@ -134,9 +159,16 @@ class Protocol extends _is.DatabaseSerializationManager {
       return (data != null ? _i6iefg2g.StripePaymentInfo.fromJson(data) : null)
           as T;
     }
-    try {
-      return _isp.Protocol().deserialize<T>(data, t);
-    } on _is.DeserializationTypeNotFoundException catch (_) {}
+    final modules = deserializationMetadata.modulesForDeserialization(
+      t,
+      className: rawDataClassName,
+    );
+    for (final module in modules) {
+      try {
+        return module.deserialize<T>(data, t);
+      } on _is.DeserializationTypeNotFoundException catch (_) {}
+    }
+
     return super.deserialize<T>(data, t);
   }
 
@@ -195,8 +227,10 @@ class Protocol extends _is.DatabaseSerializationManager {
       return deserialize<_i6iefg2g.StripePaymentInfo>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
-      data['className'] = dataClassName.substring(10);
-      return _isp.Protocol().deserializeByClassName(data);
+      return _isp.Protocol().deserializeByClassName({
+        ...data,
+        'className': dataClassName.substring(10),
+      });
     }
     return super.deserializeByClassName(data);
   }
@@ -219,6 +253,9 @@ class Protocol extends _is.DatabaseSerializationManager {
   @override
   List<_isp.TableDefinition> getTargetTableDefinitions() =>
       targetTableDefinitions;
+
+  @override
+  List<_isp.TableDefinition> getOwnTableDefinitions() => _ownTableDefinitions;
 
   @override
   String getModuleName() => 'stripepod';
