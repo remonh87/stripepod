@@ -4,7 +4,7 @@
 
 ![StripePod Featured](stripe_pod_featured.png)
 
-*Maintained by [Remon Helmond](https://remonhelmond.dev)*
+*Maintained by [Remon Helmond](https://remonhelmond.com)*
 
 ---
 
@@ -16,7 +16,7 @@ When Serverpod came out it was a game changer for Flutter developers because now
 
 This repository is a clean, vertical slice of a production payment flow. It uses:
 
-- **Serverpod 3.0 (RC)**: Leveraging the latest backend architecture
+- **Serverpod 4.0**: Leveraging the latest backend architecture
 - **Stripe Payment Sheet**: Native UI for Card, Apple Pay, and Google Pay
 - **Secure Webhooks**: Verifying signatures and handling idempotency
 - **Database Logging**: Storing payment status in Postgres (not in memory)
@@ -34,7 +34,7 @@ We follow the **"Verify, Don't Trust"** principle. The App handles the UI, but t
 ## 🛠 Prerequisites
 
 - **Flutter SDK** (Latest Stable)
-- **Serverpod** (Version 3.0+) see [serverpod docs](https://docs.serverpod.dev/next/)
+- **Serverpod** (Version 4.0+) see [serverpod docs](https://docs.serverpod.dev/next/)
 - **Docker Desktop** (Running)
 - **Stripe Account & Stripe CLI** (For local webhook testing) [See stripe docs](https://stripe.com/docs/stripe-cli)
 
@@ -112,14 +112,6 @@ The product catalog is hardcoded in the Flutter UI.
 We used `StatefulWidget` and `ValueNotifier` instead of Bloc/Riverpod.
 
 > **Tip**: Dependencies are debt. This boilerplate is designed to be copy-pasted into any architecture without conflicting with your existing state management.
-
----
-
-## 🤝 Need to Scale?
-
-This boilerplate handles the **"First Transaction."** Scaling to subscriptions, handling proration, and automating DevOps (Terraform/K8s) requires a deeper strategy.
-
-- 🔗 [Connect with Remon Helmond on LinkedIn](https://linkedin.com)
 
 ---
 

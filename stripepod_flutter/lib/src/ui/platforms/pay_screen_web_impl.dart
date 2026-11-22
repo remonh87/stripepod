@@ -94,7 +94,7 @@ class _PayScreenWebImplState extends State<PayScreenWebImpl> {
       children: [
         Row(
           children: [
-            Text('Arkbridge consult'),
+            Text('StripePod demo'),
             Spacer(),
             Text('\$100'),
           ],
