@@ -8,31 +8,53 @@
 // ignore_for_file: type_literal_in_constant_pattern
 // ignore_for_file: use_super_parameters
 // ignore_for_file: invalid_use_of_internal_member
+// ignore_for_file: dead_code, unnecessary_type_check
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod_client/serverpod_client.dart' as _i1;
-import 'model/payment.dart' as _i2;
-import 'model/payment_status.dart' as _i3;
-import 'model/product.dart' as _i4;
-import 'model/stripe_payment_info.dart' as _i5;
+import 'package:serverpod_client/serverpod_client.dart' as _isc;
+import 'model/payment.dart' as _ikfleofm;
+import 'model/payment_status.dart' as _i00yjj1v;
+import 'model/product.dart' as _igfqb4xa;
+import 'model/stripe_payment_info.dart' as _i6iefg2g;
 export 'model/payment.dart';
 export 'model/payment_status.dart';
 export 'model/product.dart';
 export 'model/stripe_payment_info.dart';
 export 'client.dart';
 
-class Protocol extends _i1.SerializationManager {
+class Protocol extends _isc.SerializationManager
+    implements _isc.ProtocolDeserializationProvider {
   Protocol._();
 
   factory Protocol() => _instance;
 
   static final Protocol _instance = Protocol._();
 
-  static String? getClassNameFromObjectJson(dynamic data) {
-    if (data is! Map) return null;
-    final className = data['__className__'] as String?;
-    return className;
-  }
+  @override
+  _isc.ProtocolDeserialization get deserializationMetadata =>
+      _isc.ProtocolDeserialization.cached(
+        this,
+        types: const [
+          _isc.getType<_ikfleofm.Payment>,
+          _isc.getType<_i00yjj1v.PaymentStatus>,
+          _isc.getType<_igfqb4xa.Product>,
+          _isc.getType<_i6iefg2g.StripePaymentInfo>,
+          _isc.getType<_ikfleofm.Payment?>,
+          _isc.getType<_i00yjj1v.PaymentStatus?>,
+          _isc.getType<_igfqb4xa.Product?>,
+          _isc.getType<_i6iefg2g.StripePaymentInfo?>,
+        ],
+        modules: const [],
+        classNames: const [
+          'Payment',
+          'PaymentStatus',
+          'Product',
+          'StripePaymentInfo',
+        ],
+      );
+
+  static String? getClassNameFromObjectJson(dynamic data) =>
+      _isc.ProtocolDeserialization.readClassName(data);
 
   @override
   T deserialize<T>(
@@ -40,54 +62,56 @@ class Protocol extends _i1.SerializationManager {
     Type? t,
   ]) {
     t ??= T;
-
-    final dataClassName = getClassNameFromObjectJson(data);
+    final rawDataClassName = _isc.ProtocolDeserialization.readClassName(data);
+    final dataClassName = rawDataClassName;
     if (dataClassName != null && dataClassName != getClassNameForType(t)) {
       try {
         return deserializeByClassName({
           'className': dataClassName,
           'data': data,
         });
-      } on FormatException catch (_) {
+      } on _isc.DeserializationClassNameNotFoundException catch (_) {
         // If the className is not recognized (e.g., older client receiving
         // data with a new subtype), fall back to deserializing without the
         // className, using the expected type T.
       }
     }
 
-    if (t == _i2.Payment) {
-      return _i2.Payment.fromJson(data) as T;
+    if (t == _ikfleofm.Payment) {
+      return _ikfleofm.Payment.fromJson(data) as T;
     }
-    if (t == _i3.PaymentStatus) {
-      return _i3.PaymentStatus.fromJson(data) as T;
+    if (t == _i00yjj1v.PaymentStatus) {
+      return _i00yjj1v.PaymentStatus.fromJson(data) as T;
     }
-    if (t == _i4.Product) {
-      return _i4.Product.fromJson(data) as T;
+    if (t == _igfqb4xa.Product) {
+      return _igfqb4xa.Product.fromJson(data) as T;
     }
-    if (t == _i5.StripePaymentInfo) {
-      return _i5.StripePaymentInfo.fromJson(data) as T;
+    if (t == _i6iefg2g.StripePaymentInfo) {
+      return _i6iefg2g.StripePaymentInfo.fromJson(data) as T;
     }
-    if (t == _i1.getType<_i2.Payment?>()) {
-      return (data != null ? _i2.Payment.fromJson(data) : null) as T;
+    if (t == _isc.getType<_ikfleofm.Payment?>()) {
+      return (data != null ? _ikfleofm.Payment.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i3.PaymentStatus?>()) {
-      return (data != null ? _i3.PaymentStatus.fromJson(data) : null) as T;
+    if (t == _isc.getType<_i00yjj1v.PaymentStatus?>()) {
+      return (data != null ? _i00yjj1v.PaymentStatus.fromJson(data) : null)
+          as T;
     }
-    if (t == _i1.getType<_i4.Product?>()) {
-      return (data != null ? _i4.Product.fromJson(data) : null) as T;
+    if (t == _isc.getType<_igfqb4xa.Product?>()) {
+      return (data != null ? _igfqb4xa.Product.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i5.StripePaymentInfo?>()) {
-      return (data != null ? _i5.StripePaymentInfo.fromJson(data) : null) as T;
+    if (t == _isc.getType<_i6iefg2g.StripePaymentInfo?>()) {
+      return (data != null ? _i6iefg2g.StripePaymentInfo.fromJson(data) : null)
+          as T;
     }
     return super.deserialize<T>(data, t);
   }
 
   static String? getClassNameForType(Type type) {
     return switch (type) {
-      _i2.Payment => 'Payment',
-      _i3.PaymentStatus => 'PaymentStatus',
-      _i4.Product => 'Product',
-      _i5.StripePaymentInfo => 'StripePaymentInfo',
+      _ikfleofm.Payment => 'Payment',
+      _i00yjj1v.PaymentStatus => 'PaymentStatus',
+      _igfqb4xa.Product => 'Product',
+      _i6iefg2g.StripePaymentInfo => 'StripePaymentInfo',
       _ => null,
     };
   }
@@ -102,13 +126,13 @@ class Protocol extends _i1.SerializationManager {
     }
 
     switch (data) {
-      case _i2.Payment():
+      case _ikfleofm.Payment():
         return 'Payment';
-      case _i3.PaymentStatus():
+      case _i00yjj1v.PaymentStatus():
         return 'PaymentStatus';
-      case _i4.Product():
+      case _igfqb4xa.Product():
         return 'Product';
-      case _i5.StripePaymentInfo():
+      case _i6iefg2g.StripePaymentInfo():
         return 'StripePaymentInfo';
     }
     return null;
@@ -121,17 +145,32 @@ class Protocol extends _i1.SerializationManager {
       return super.deserializeByClassName(data);
     }
     if (dataClassName == 'Payment') {
-      return deserialize<_i2.Payment>(data['data']);
+      return deserialize<_ikfleofm.Payment>(data['data']);
     }
     if (dataClassName == 'PaymentStatus') {
-      return deserialize<_i3.PaymentStatus>(data['data']);
+      return deserialize<_i00yjj1v.PaymentStatus>(data['data']);
     }
     if (dataClassName == 'Product') {
-      return deserialize<_i4.Product>(data['data']);
+      return deserialize<_igfqb4xa.Product>(data['data']);
     }
     if (dataClassName == 'StripePaymentInfo') {
-      return deserialize<_i5.StripePaymentInfo>(data['data']);
+      return deserialize<_i6iefg2g.StripePaymentInfo>(data['data']);
     }
     return super.deserializeByClassName(data);
+  }
+
+  @override
+  String getModuleName() => 'stripepod';
+
+  /// Maps any `Record`s known to this [Protocol] to their JSON representation
+  ///
+  /// Throws in case the record type is not known.
+  ///
+  /// This method will return `null` (only) for `null` inputs.
+  Map<String, dynamic>? mapRecordToJson(Record? record) {
+    if (record == null) {
+      return null;
+    }
+    throw Exception('Unsupported record type ${record.runtimeType}');
   }
 }

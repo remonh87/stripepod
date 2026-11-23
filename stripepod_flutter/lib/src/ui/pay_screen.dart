@@ -58,7 +58,7 @@ class _PayScreenState extends State<PayScreen> {
         paymentSheetParameters: SetupPaymentSheetParameters(
           paymentIntentClientSecret: paymentInfo.clientSecret,
           billingDetails: billingDetails,
-          merchantDisplayName: 'Arkbridge',
+          merchantDisplayName: 'StripePod',
         ),
       );
 
@@ -97,7 +97,7 @@ class _PayScreenState extends State<PayScreen> {
 
               Row(
                 children: [
-                  Text('Arkbridge consult'),
+                  Text('StripePod demo'),
                   Spacer(),
                   Text('\$100'),
                 ],

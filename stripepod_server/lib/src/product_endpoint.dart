@@ -10,7 +10,7 @@ class ProductEndpoint extends Endpoint {
   Future<Product> getProduct(Session session, int id) async {
     return Product(
       id: id,
-      name: 'Arkbridge Consult $id',
+      name: 'StripePod Demo $id',
       priceInCents: 10000,
     );
   }

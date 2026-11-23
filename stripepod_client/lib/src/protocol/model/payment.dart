@@ -10,10 +10,11 @@
 // ignore_for_file: invalid_use_of_internal_member
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod_client/serverpod_client.dart' as _i1;
-import '../model/payment_status.dart' as _i2;
+import 'package:serverpod_client/serverpod_client.dart' as _isc;
+import '../model/payment_status.dart' as _ibsopln7;
 
-abstract class Payment implements _i1.SerializableModel {
+abstract class Payment
+    implements _isc.SerializableModel, _isc.ProtocolSerialization {
   Payment._({
     this.id,
     required this.stripeId,
@@ -28,7 +29,7 @@ abstract class Payment implements _i1.SerializableModel {
     required String stripeId,
     required int amount,
     required String currency,
-    required _i2.PaymentStatus status,
+    required _ibsopln7.PaymentStatus status,
     required DateTime createdAt,
   }) = _PaymentImpl;
 
@@ -38,10 +39,10 @@ abstract class Payment implements _i1.SerializableModel {
       stripeId: jsonSerialization['stripeId'] as String,
       amount: jsonSerialization['amount'] as int,
       currency: jsonSerialization['currency'] as String,
-      status: _i2.PaymentStatus.fromJson(
+      status: _ibsopln7.PaymentStatus.fromJson(
         (jsonSerialization['status'] as String),
       ),
-      createdAt: _i1.DateTimeJsonExtension.fromJson(
+      createdAt: _isc.DateTimeJsonExtension.fromJson(
         jsonSerialization['createdAt'],
       ),
     );
@@ -58,19 +59,19 @@ abstract class Payment implements _i1.SerializableModel {
 
   String currency;
 
-  _i2.PaymentStatus status;
+  _ibsopln7.PaymentStatus status;
 
   DateTime createdAt;
 
   /// Returns a shallow copy of this [Payment]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @_isc.useResult
   Payment copyWith({
     int? id,
     String? stripeId,
     int? amount,
     String? currency,
-    _i2.PaymentStatus? status,
+    _ibsopln7.PaymentStatus? status,
     DateTime? createdAt,
   });
   @override
@@ -87,8 +88,21 @@ abstract class Payment implements _i1.SerializableModel {
   }
 
   @override
+  Map<String, dynamic> toJsonForProtocol() {
+    return {
+      '__className__': 'Payment',
+      if (id != null) 'id': id,
+      'stripeId': stripeId,
+      'amount': amount,
+      'currency': currency,
+      'status': status.toJson(),
+      'createdAt': createdAt.toJson(),
+    };
+  }
+
+  @override
   String toString() {
-    return _i1.SerializationManager.encode(this);
+    return _isc.SerializationManager.encode(this);
   }
 }
 
@@ -100,7 +114,7 @@ class _PaymentImpl extends Payment {
     required String stripeId,
     required int amount,
     required String currency,
-    required _i2.PaymentStatus status,
+    required _ibsopln7.PaymentStatus status,
     required DateTime createdAt,
   }) : super._(
          id: id,
@@ -113,14 +127,14 @@ class _PaymentImpl extends Payment {
 
   /// Returns a shallow copy of this [Payment]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @_isc.useResult
   @override
   Payment copyWith({
     Object? id = _Undefined,
     String? stripeId,
     int? amount,
     String? currency,
-    _i2.PaymentStatus? status,
+    _ibsopln7.PaymentStatus? status,
     DateTime? createdAt,
   }) {
     return Payment(

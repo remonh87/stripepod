@@ -10,88 +10,94 @@
 // ignore_for_file: invalid_use_of_internal_member
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod/serverpod.dart' as _i1;
-import '../pay_endpoint.dart' as _i2;
-import '../product_endpoint.dart' as _i3;
+import 'package:serverpod/serverpod.dart' as _is;
+import '../pay_endpoint.dart' as _ihactqzd;
+import '../product_endpoint.dart' as _ixncfng6;
 
-class Endpoints extends _i1.EndpointDispatch {
+class Endpoints extends _is.EndpointDispatch {
   @override
-  void initializeEndpoints(_i1.Server server) {
-    var endpoints = <String, _i1.Endpoint>{
-      'pay': _i2.PayEndpoint()
+  void initializeEndpoints(_is.Server server) {
+    initializeOwnEndpoints(server);
+  }
+
+  @override
+  void initializeOwnEndpoints(_is.Server server) {
+    var endpoints = <String, _is.Endpoint>{
+      'pay': _ihactqzd.PayEndpoint()
         ..initialize(
           server,
           'pay',
           null,
         ),
-      'product': _i3.ProductEndpoint()
+      'product': _ixncfng6.ProductEndpoint()
         ..initialize(
           server,
           'product',
           null,
         ),
     };
-    connectors['pay'] = _i1.EndpointConnector(
+    connectors['pay'] = _is.EndpointConnector(
       name: 'pay',
       endpoint: endpoints['pay']!,
       methodConnectors: {
-        'pay': _i1.MethodConnector(
+        'pay': _is.MethodConnector(
           name: 'pay',
           params: {
-            'productId': _i1.ParameterDescription(
+            'productId': _is.ParameterDescription(
               name: 'productId',
-              type: _i1.getType<int>(),
+              type: _is.getType<int>(),
               nullable: false,
             ),
           },
           call:
               (
-                _i1.Session session,
+                _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['pay'] as _i2.PayEndpoint).pay(
+              ) async => (endpoints['pay'] as _ihactqzd.PayEndpoint).pay(
                 session,
                 params['productId'],
               ),
         ),
-        'getPaymentById': _i1.MethodConnector(
+        'getPaymentById': _is.MethodConnector(
           name: 'getPaymentById',
           params: {
-            'stripeIntentId': _i1.ParameterDescription(
+            'stripeIntentId': _is.ParameterDescription(
               name: 'stripeIntentId',
-              type: _i1.getType<String>(),
+              type: _is.getType<String>(),
               nullable: false,
             ),
           },
           call:
               (
-                _i1.Session session,
+                _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['pay'] as _i2.PayEndpoint).getPaymentById(
-                session,
-                params['stripeIntentId'],
-              ),
+              ) async =>
+                  (endpoints['pay'] as _ihactqzd.PayEndpoint).getPaymentById(
+                    session,
+                    params['stripeIntentId'],
+                  ),
         ),
       },
     );
-    connectors['product'] = _i1.EndpointConnector(
+    connectors['product'] = _is.EndpointConnector(
       name: 'product',
       endpoint: endpoints['product']!,
       methodConnectors: {
-        'getProduct': _i1.MethodConnector(
+        'getProduct': _is.MethodConnector(
           name: 'getProduct',
           params: {
-            'id': _i1.ParameterDescription(
+            'id': _is.ParameterDescription(
               name: 'id',
-              type: _i1.getType<int>(),
+              type: _is.getType<int>(),
               nullable: false,
             ),
           },
           call:
               (
-                _i1.Session session,
+                _is.Session session,
                 Map<String, dynamic> params,
-              ) async =>
-                  (endpoints['product'] as _i3.ProductEndpoint).getProduct(
+              ) async => (endpoints['product'] as _ixncfng6.ProductEndpoint)
+                  .getProduct(
                     session,
                     params['id'],
                   ),

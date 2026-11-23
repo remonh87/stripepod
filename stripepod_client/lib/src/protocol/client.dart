@@ -10,32 +10,33 @@
 // ignore_for_file: invalid_use_of_internal_member
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod_client/serverpod_client.dart' as _i1;
-import 'dart:async' as _i2;
+import 'dart:async' as _ida;
+import 'package:http/http.dart' as _i85jenna;
+import 'package:serverpod_client/serverpod_client.dart' as _isc;
+import 'package:stripepod_client/src/protocol/model/payment.dart' as _ig1nijhj;
+import 'package:stripepod_client/src/protocol/model/product.dart' as _i4unprgg;
 import 'package:stripepod_client/src/protocol/model/stripe_payment_info.dart'
-    as _i3;
-import 'package:stripepod_client/src/protocol/model/payment.dart' as _i4;
-import 'package:stripepod_client/src/protocol/model/product.dart' as _i5;
-import 'protocol.dart' as _i6;
+    as _izmhg959;
+import 'protocol.dart' as _il2as5qe;
 
 /// Endpoint that will create a payment intent and return the payment intent
 /// client secret
 /// {@category Endpoint}
-class EndpointPay extends _i1.EndpointRef {
-  EndpointPay(_i1.EndpointCaller caller) : super(caller);
+class EndpointPay extends _isc.EndpointRef {
+  EndpointPay(_isc.EndpointCaller caller) : super(caller);
 
   @override
   String get name => 'pay';
 
-  _i2.Future<_i3.StripePaymentInfo> pay(int productId) =>
-      caller.callServerEndpoint<_i3.StripePaymentInfo>(
+  _ida.Future<_izmhg959.StripePaymentInfo> pay(int productId) =>
+      caller.callServerEndpoint<_izmhg959.StripePaymentInfo>(
         'pay',
         'pay',
         {'productId': productId},
       );
 
-  _i2.Future<_i4.Payment> getPaymentById(String stripeIntentId) =>
-      caller.callServerEndpoint<_i4.Payment>(
+  _ida.Future<_ig1nijhj.Payment> getPaymentById(String stripeIntentId) =>
+      caller.callServerEndpoint<_ig1nijhj.Payment>(
         'pay',
         'getPaymentById',
         {'stripeIntentId': stripeIntentId},
@@ -43,41 +44,38 @@ class EndpointPay extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
-class EndpointProduct extends _i1.EndpointRef {
-  EndpointProduct(_i1.EndpointCaller caller) : super(caller);
+class EndpointProduct extends _isc.EndpointRef {
+  EndpointProduct(_isc.EndpointCaller caller) : super(caller);
 
   @override
   String get name => 'product';
 
-  _i2.Future<_i5.Product> getProduct(int id) =>
-      caller.callServerEndpoint<_i5.Product>(
+  _ida.Future<_i4unprgg.Product> getProduct(int id) =>
+      caller.callServerEndpoint<_i4unprgg.Product>(
         'product',
         'getProduct',
         {'id': id},
       );
 }
 
-class Client extends _i1.ServerpodClientShared {
+class Client extends _isc.ServerpodClientShared {
   Client(
     String host, {
     dynamic securityContext,
-    @Deprecated(
-      'Use authKeyProvider instead. This will be removed in future releases.',
-    )
-    super.authenticationKeyManager,
     Duration? streamingConnectionTimeout,
     Duration? connectionTimeout,
     Function(
-      _i1.MethodCallContext,
+      _isc.MethodCallContext,
       Object,
       StackTrace,
     )?
     onFailedCall,
-    Function(_i1.MethodCallContext)? onSucceededCall,
+    Function(_isc.MethodCallContext)? onSucceededCall,
     bool? disconnectStreamsOnLostInternetConnection,
+    _i85jenna.Client? httpClientOverride,
   }) : super(
          host,
-         _i6.Protocol(),
+         _il2as5qe.Protocol(),
          securityContext: securityContext,
          streamingConnectionTimeout: streamingConnectionTimeout,
          connectionTimeout: connectionTimeout,
@@ -85,6 +83,7 @@ class Client extends _i1.ServerpodClientShared {
          onSucceededCall: onSucceededCall,
          disconnectStreamsOnLostInternetConnection:
              disconnectStreamsOnLostInternetConnection,
+         httpClientOverride: httpClientOverride,
        ) {
     pay = EndpointPay(this);
     product = EndpointProduct(this);
@@ -95,11 +94,11 @@ class Client extends _i1.ServerpodClientShared {
   late final EndpointProduct product;
 
   @override
-  Map<String, _i1.EndpointRef> get endpointRefLookup => {
+  Map<String, _isc.EndpointRef> get endpointRefLookup => {
     'pay': pay,
     'product': product,
   };
 
   @override
-  Map<String, _i1.ModuleEndpointCaller> get moduleLookup => {};
+  Map<String, _isc.ModuleEndpointCaller> get moduleLookup => {};
 }
