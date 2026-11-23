@@ -33,6 +33,7 @@ database:
   port: 8090
   name: stripepod
   user: postgres
+  dataPath: .serverpod/development/pgdata
   #requireSsl: true # defaults to false
   #isUnixSocket: true # defaults to false
 

@@ -8,6 +8,9 @@ build/
 # Directory created by dartdoc
 doc/api/
 
+# Embedded Postgres data
+.serverpod/
+
 # Passwords file
 config/passwords.yaml
 
